@@ -24,7 +24,7 @@ public class LetpepIdInfoDAOImpl implements LetpepIdInfoDAO {
     public LetpepIdInfo queryByBizType(String bizType) {
         String sql = "select id, biz_type, begin_id, max_id," +
                 " step, delta, remainder, create_time, update_time, version" +
-                " from tiny_id_info where biz_type = ?";
+                " from letpep_id_info where biz_type = ?";
         List<LetpepIdInfo> list = jdbcTemplate.query(sql, new Object[]{bizType}, new TinyIdInfoRowMapper());
         if(list == null || list.isEmpty()) {
             return null;
@@ -34,7 +34,7 @@ public class LetpepIdInfoDAOImpl implements LetpepIdInfoDAO {
 
     @Override
     public int updateMaxId(Long id, Long newMaxId, Long oldMaxId, Long version, String bizType) {
-        String sql = "update tiny_id_info set max_id= ?," +
+        String sql = "update letpep_id_info set max_id= ?," +
                 " update_time=now(), version=version+1" +
                 " where id=? and max_id=? and version=? and biz_type=?";
         return jdbcTemplate.update(sql, newMaxId, id, oldMaxId, version, bizType);
