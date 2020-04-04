@@ -12,9 +12,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="codeStore" target="1.8" />
+      <module name="codestore" target="1.8" />
       <module name="os-base" target="1.8" />
-      <module name="os-service" target="1.5" />
+      <module name="os-service" target="1.8" />
       <module name="os-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
