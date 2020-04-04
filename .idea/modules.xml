@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/os-base/os-base.iml" filepath="$PROJECT_DIR$/os-base/os-base.iml" />
       <module fileurl="file://$PROJECT_DIR$/os-service/os-service.iml" filepath="$PROJECT_DIR$/os-service/os-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/os-web/os-web.iml" filepath="$PROJECT_DIR$/os-web/os-web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/os-web/os-web.iml" filepath="$PROJECT_DIR$/os-web/os-web.iml" />
     </modules>
   </component>
 </project>
