@@ -1,7 +1,6 @@
 package com.letpep.osweb.IdGenerater.config;
 
 import com.zaxxer.hikari.HikariConfig;
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +8,17 @@ import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySource;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import com.zaxxer.hikari.HikariDataSource;
-import  com.mysql.cj.jdbc.Driver;
+
 import javax.sql.DataSource;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author du_imba
+ * Date 2020
  */
 @Configuration
 public class DataSourceConfig {
@@ -31,6 +30,9 @@ public class DataSourceConfig {
     private static final String SEP = ",";
 
     private static final String DEFAULT_DATASOURCE_TYPE = "com.zaxxer.hikari.HikariDataSource";
+    @Autowired
+    DataSourceChecker dataSourceChecker;
+
 
     @Bean
     public DataSource getDynamicDataSource() {
@@ -55,6 +57,8 @@ public class DataSourceConfig {
             targetDataSources.put(name, dataSource);
             dataSourceKeys.add(name);
         }
+            dataSourceChecker.getSourcekeys().addAll(dataSourceKeys);
+
         return routingDataSource;
     }
 
@@ -79,7 +83,7 @@ public class DataSourceConfig {
             jdbcConfig.setPassword(password);
             jdbcConfig.setMaximumPoolSize(5);
             jdbcConfig.setMaxLifetime(1800000);
-            jdbcConfig.setConnectionTimeout(30000);
+            jdbcConfig.setConnectionTimeout(2000);
             jdbcConfig.setIdleTimeout(30000);
 
             return new HikariDataSource(jdbcConfig);

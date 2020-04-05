@@ -1,24 +1,25 @@
 package com.letpep.osweb.IdGenerater.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * @author du_imba
+ * Date 2020
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
     private List<String> dataSourceKeys;
+    @Autowired
+    private DataSourceChecker dataSourceChecker;
 
     @Override
     protected Object determineCurrentLookupKey() {
-        if(dataSourceKeys.size() == 1) {
-            return dataSourceKeys.get(0);
-        }
-        Random r = new Random();
-        return dataSourceKeys.get(r.nextInt(dataSourceKeys.size()));
+        return dataSourceChecker.getDateSource(dataSourceKeys);
     }
 
     public List<String> getDataSourceKeys() {

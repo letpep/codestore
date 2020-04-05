@@ -34,7 +34,7 @@ public class LetpepIdTokenServiceImpl implements LetpepIdTokenService {
     /**
      * 1分钟刷新一次token
      */
-    @Scheduled(cron = "0 0/1 * * * ?")
+//    @Scheduled(cron = "0 0/1 * * * ?")
     public void refresh() {
         logger.info("refresh token begin");
         init();
