@@ -83,23 +83,9 @@ public class DataSourceChecker {
     }
     public  String getDateSource(List<String> dataSourceKeys){
         if(this.isChecking){
-            System.out.println("检测获取key中");
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("检测获取key结束");
             return this.checkingSourceKey;
         }
         else {
-            System.out.println("正常获取key中");
-            try {
-                Thread.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("正常获取key结束");
             if (this.sourceCheckkeys.size() == 0) {
                 if(dataSourceKeys.size() == 1) {
                     return dataSourceKeys.get(0);
