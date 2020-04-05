@@ -11,8 +11,7 @@ import com.letpep.osweb.IdGenerater.util.NamedThreadFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * Date 2020
@@ -24,7 +23,8 @@ public class CachedIdGenerator implements IdGenerator {
     protected volatile SegmentId next;
     private volatile boolean isLoadingNext;
     private Object lock = new Object();
-    private ExecutorService executorService = Executors.newSingleThreadExecutor(new NamedThreadFactory("tinyid-generator"));
+//    private ExecutorService executorService = Executors.newSingleThreadExecutor(new NamedThreadFactory("tinyid-generator"));
+    private ExecutorService executorService =  new ThreadPoolExecutor(5,10,2L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(10));
 
     public CachedIdGenerator(String bizType, SegmentIdService segmentIdService) {
         this.bizType = bizType;

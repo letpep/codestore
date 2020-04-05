@@ -24,10 +24,10 @@ public class LetpepIdTokenDAOImpl implements LetpepIdTokenDAO {
     public List<LetpepIdToken> selectAll() {
         String sql = "select id, token, biz_type, remark, " +
                 "create_time, update_time from letpep_id_token";
-        return jdbcTemplate.query(sql, new TinyIdTokenRowMapper());
+        return jdbcTemplate.query(sql, new LetpepIdTokenRowMapper());
     }
 
-    public static class TinyIdTokenRowMapper implements RowMapper<LetpepIdToken> {
+    public static class LetpepIdTokenRowMapper implements RowMapper<LetpepIdToken> {
 
         @Override
         public LetpepIdToken mapRow(ResultSet resultSet, int i) throws SQLException {

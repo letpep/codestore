@@ -42,11 +42,11 @@ public class LetpepIdTokenServiceImpl implements LetpepIdTokenService {
 
     @PostConstruct
     private synchronized void init() {
-        logger.info("tinyId token init begin");
+        logger.info("letpepId token init begin");
         List<LetpepIdToken> list = queryAll();
         Map<String, Set<String>> map = converToMap(list);
         token2bizTypes = map;
-        logger.info("tinyId token init success, token size:{}", list == null ? 0 : list.size());
+        logger.info("letpepId token init success, token size:{}", list == null ? 0 : list.size());
     }
 
     @Override
