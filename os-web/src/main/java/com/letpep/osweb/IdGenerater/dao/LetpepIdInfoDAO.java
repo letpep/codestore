@@ -8,7 +8,7 @@ import com.letpep.osweb.IdGenerater.entity.LetpepIdInfo;
  */
 public interface LetpepIdInfoDAO {
     /**
-     * 根据bizType获取db中的tinyId对象
+     * 根据bizType获取db中的letpepId对象
      * @param bizType
      * @return
      */

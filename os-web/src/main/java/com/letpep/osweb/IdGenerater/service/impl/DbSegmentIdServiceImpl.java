@@ -25,7 +25,7 @@ public class DbSegmentIdServiceImpl implements SegmentIdService {
     private static final Logger logger = LoggerFactory.getLogger(DbSegmentIdServiceImpl.class);
 
     @Autowired
-    private LetpepIdInfoDAO tinyIdInfoDAO;
+    private LetpepIdInfoDAO letpepIdInfoDAO;
 
     /**
      * Transactional标记保证query和update使用的是同一连接
@@ -38,21 +38,21 @@ public class DbSegmentIdServiceImpl implements SegmentIdService {
     public SegmentId getNextSegmentId(String bizType) {
         // 获取nextLetpepId的时候，有可能存在version冲突，需要重试
         for (int i = 0; i < Constants.RETRY; i++) {
-            LetpepIdInfo tinyIdInfo = tinyIdInfoDAO.queryByBizType(bizType);
-            if (tinyIdInfo == null) {
+            LetpepIdInfo letpepIdInfo = letpepIdInfoDAO.queryByBizType(bizType);
+            if (letpepIdInfo == null) {
                 throw new LetpepIdSysException("can not find biztype:" + bizType);
             }
-            Long newMaxId = tinyIdInfo.getMaxId() + tinyIdInfo.getStep();
-            Long oldMaxId = tinyIdInfo.getMaxId();
-            int row = tinyIdInfoDAO.updateMaxId(tinyIdInfo.getId(), newMaxId, oldMaxId, tinyIdInfo.getVersion(),
-                    tinyIdInfo.getBizType());
+            Long newMaxId = letpepIdInfo.getMaxId() + letpepIdInfo.getStep();
+            Long oldMaxId = letpepIdInfo.getMaxId();
+            int row = letpepIdInfoDAO.updateMaxId(letpepIdInfo.getId(), newMaxId, oldMaxId, letpepIdInfo.getVersion(),
+                    letpepIdInfo.getBizType());
             if (row == 1) {
-                tinyIdInfo.setMaxId(newMaxId);
-                SegmentId segmentId = convert(tinyIdInfo);
-                logger.info("getNextSegmentId success tinyIdInfo:{} current:{}", tinyIdInfo, segmentId);
+                letpepIdInfo.setMaxId(newMaxId);
+                SegmentId segmentId = convert(letpepIdInfo);
+                logger.info("getNextSegmentId success letpepIdInfo:{} current:{}", letpepIdInfo, segmentId);
                 return segmentId;
             } else {
-                logger.info("getNextSegmentId conflict tinyIdInfo:{}", tinyIdInfo);
+                logger.info("getNextSegmentId conflict letpepIdInfo:{}", letpepIdInfo);
             }
         }
         throw new LetpepIdSysException("get next segmentId conflict");

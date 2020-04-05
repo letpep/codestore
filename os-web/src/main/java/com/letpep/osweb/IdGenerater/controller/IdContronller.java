@@ -30,7 +30,7 @@ public class IdContronller {
     @Autowired
     private SegmentIdService segmentIdService;
     @Autowired
-    private LetpepIdTokenService tinyIdTokenService;
+    private LetpepIdTokenService letpepIdTokenService;
     @Value("${batch.size.max}")
     private Integer batchSizeMax;
 
@@ -38,7 +38,7 @@ public class IdContronller {
     public Response<List<Long>> nextId(String bizType, Integer batchSize, String token) {
         Response<List<Long>> response = new Response<>();
         Integer newBatchSize = checkBatchSize(batchSize);
-        if (!tinyIdTokenService.canVisit(bizType, token)) {
+        if (!letpepIdTokenService.canVisit(bizType, token)) {
             response.setCode(ErrorCode.TOKEN_ERR.getCode());
             response.setMessage(ErrorCode.TOKEN_ERR.getMessage());
             return response;
@@ -68,7 +68,7 @@ public class IdContronller {
     @RequestMapping("nextIdSimple")
     public String nextIdSimple(String bizType, Integer batchSize, String token) {
         Integer newBatchSize = checkBatchSize(batchSize);
-        if (!tinyIdTokenService.canVisit(bizType, token)) {
+        if (!letpepIdTokenService.canVisit(bizType, token)) {
             return "";
         }
         String response = "";
@@ -94,7 +94,7 @@ public class IdContronller {
     @RequestMapping("nextSegmentId")
     public Response<SegmentId> nextSegmentId(String bizType, String token) {
         Response<SegmentId> response = new Response<>();
-        if (!tinyIdTokenService.canVisit(bizType, token)) {
+        if (!letpepIdTokenService.canVisit(bizType, token)) {
             response.setCode(ErrorCode.TOKEN_ERR.getCode());
             response.setMessage(ErrorCode.TOKEN_ERR.getMessage());
             return response;
@@ -112,7 +112,7 @@ public class IdContronller {
 
     @RequestMapping("nextSegmentIdSimple")
     public String nextSegmentIdSimple(String bizType, String token) {
-        if (!tinyIdTokenService.canVisit(bizType, token)) {
+        if (!letpepIdTokenService.canVisit(bizType, token)) {
             return "";
         }
         String response = "";

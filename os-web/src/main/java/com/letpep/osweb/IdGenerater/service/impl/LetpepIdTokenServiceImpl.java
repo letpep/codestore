@@ -21,14 +21,14 @@ import java.util.*;
 public class LetpepIdTokenServiceImpl implements LetpepIdTokenService {
 
     @Autowired
-    private LetpepIdTokenDAO tinyIdTokenDAO;
+    private LetpepIdTokenDAO letpepIdTokenDAO;
 
     private static Map<String, Set<String>> token2bizTypes = new HashMap<>();
 
     private static final Logger logger = LoggerFactory.getLogger(LetpepIdTokenServiceImpl.class);
 
     public List<LetpepIdToken> queryAll() {
-        return tinyIdTokenDAO.selectAll();
+        return letpepIdTokenDAO.selectAll();
     }
 
     /**
@@ -61,11 +61,11 @@ public class LetpepIdTokenServiceImpl implements LetpepIdTokenService {
     public Map<String, Set<String>> converToMap(List<LetpepIdToken> list) {
         Map<String, Set<String>> map = new HashMap<>(64);
         if (list != null) {
-            for (LetpepIdToken tinyIdToken : list) {
-                if (!map.containsKey(tinyIdToken.getToken())) {
-                    map.put(tinyIdToken.getToken(), new HashSet<String>());
+            for (LetpepIdToken letpepIdToken : list) {
+                if (!map.containsKey(letpepIdToken.getToken())) {
+                    map.put(letpepIdToken.getToken(), new HashSet<String>());
                 }
-                map.get(tinyIdToken.getToken()).add(tinyIdToken.getBizType());
+                map.get(letpepIdToken.getToken()).add(letpepIdToken.getBizType());
             }
         }
         return map;
